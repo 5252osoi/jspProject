@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>test10.jsp</title>
+	<title>test13.jsp</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -43,9 +43,9 @@
 <body>
 	<p><br/></p>
 	<div class="container">
-	<h2>회원가입 연습(response.sendRedirect)</h2>
+	<h2>회원가입 연습(RequestDispatcher)</h2>
 	<hr/>
-	<form name ="myform" method="post" action="<%=request.getContextPath() %>/j1026/test10Ok">
+	<form name ="myform" method="post" action="<%=request.getContextPath() %>/j1026/test13Ok">
 	
 		<div class="cont">성명
 			<input type="text" name ="name" class="form-control mb-3" autofocus/>
@@ -79,7 +79,6 @@
 		<div>
 			<input type="button" value ="전송(button)" onclick="fCheck()" class="btn btn-info form-control mt-3"/>
 		</div>
-		<input type="hidden" name="flag" value="ok!OK!" />
 		
 	</form>
 	</div>
