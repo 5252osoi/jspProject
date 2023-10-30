@@ -9,7 +9,7 @@
 </head>
 <body>
 	<p><br/></p>
-	<div class="container">
+	<div class="container" >
 		<form name="loginForm" method="post" action="${pageContext.request.contextPath}/j1030/loginOk">
 			<table class="table-bordered">
 				<tr>
