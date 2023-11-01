@@ -25,15 +25,27 @@
   <div id="demo">
     <c:set var="sDan" value="${param.startDan}"/>
     <c:set var="eDan" value="${param.endDan}"/>
-    <c:if test="${!empty sDan && !empty eDan}">
-      <c:forEach var="i" begin="${sDan}" end="${eDan}">
-	      * ${i} 단 *<br/>
-	    	<c:forEach var="j" begin="1" end="9">
-		      ${i} * ${j} = ${i * j}<br/>
-		    </c:forEach>
-		    <br/>
-	    </c:forEach>
-    </c:if>
+    <c:set var="su" value="${param.su}"/>
+    
+	<c:if test="${!empty sDan && !empty eDan && !empty su}">
+		<table class="table table-bordered text-center">
+			<tr>
+				<c:forEach var="i" begin="${sDan}" end="${eDan}" varStatus="st">	
+			     	<td>
+			      	* ${i} 단 *<br/>
+			    	<c:forEach var="j" begin="1" end="9">
+				    	${i} * ${j} = ${i * j}<br/>
+				    </c:forEach>
+				    <br/>
+				    </td>
+				    <c:if test="${st.count%su==0}">
+						</tr>
+				    	<tr>
+				    </c:if>	
+				</c:forEach>	
+			</tr>
+		</table>
+	 </c:if>    
   </div>
 </div>
 <p><br/></p>
