@@ -11,6 +11,8 @@
 		cPwd = cookies[1].getValue()==null?"":cookies[1].getValue();
 		cCheck = cookies[2].getValue()==null?"":cookies[2].getValue();
 	}
+	
+	
 %>
 
 <!DOCTYPE html>
