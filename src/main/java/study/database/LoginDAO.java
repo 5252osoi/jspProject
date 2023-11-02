@@ -111,5 +111,28 @@ public class LoginDAO {
 		}
 		return vos;
 	}
+	public LoginVO getLoginList(String mid) {
+		vo = new LoginVO();
+		try {
+			sql="select * from login where mid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setName(rs.getString("name"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLastDate(rs.getString("lastDate"));
+				vo.setTodayCount(rs.getInt("todayCount"));
+			}
+		} catch (SQLException e) {
+			System.out.println("sql 구문 오류입니다 : "+e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
+	}
 	
 }

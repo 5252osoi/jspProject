@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<jsp:include page="/include/bs4.jsp"/>
 	<title>memberMain.jsp</title>
-	<script>
+<!-- 	<script>
 		'use strict'
 		function searchCheck() {
 			let str=""
@@ -19,7 +19,7 @@
 			demo.innerHTML=str;
 		}
 	
-	</script>	
+	</script>	 -->
 </head>
 <body>
 	<p><br/></p>
@@ -37,11 +37,16 @@
 		<hr/>
 		<hr/>
 		<div class="row">
-			<div class="col"></div>
-			<div class="col"><a href="javascript:searchCheck()" class="btn btn-success">개별조회</a></div>
-			<div class="col"><a href="${ctp}/database/memberList" class="btn btn-info">전체조회</a></div>
-			<div class="col"><a href="login.jsp" class="btn btn-warning">로그아웃</a></div>
-			<div class="col"></div>
+			<div class="col-2"></div>
+			<div class="col-4">
+				<form name="searchform" method="post" action="${ctp}/database/memberSearch">
+			<input type="text" name="mid" value="hkd1234" class="mr-1"/>
+			<input type="submit" value="개별조회" class="btn btn-success"/>
+				</form>
+			</div>
+			<div class="col-2"><a href="${ctp}/database/memberList" class="btn btn-info">전체조회</a></div>
+			<div class="col-2"><a href="login.jsp" class="btn btn-warning">로그아웃</a></div>
+			<div class="col-2"></div>
 		</div>
 		<hr/>
 		<div id="demo"></div>
