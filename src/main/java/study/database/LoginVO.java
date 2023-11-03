@@ -9,7 +9,6 @@ public class LoginVO {
 	private String lastDate;
 	private int todayCount;
 	
-	
 	public int getIdx() {
 		return idx;
 	}
@@ -52,11 +51,10 @@ public class LoginVO {
 	public void setTodayCount(int todayCount) {
 		this.todayCount = todayCount;
 	}
+	
 	@Override
 	public String toString() {
 		return "LoginVO [idx=" + idx + ", mid=" + mid + ", pwd=" + pwd + ", name=" + name + ", point=" + point
 				+ ", lastDate=" + lastDate + ", todayCount=" + todayCount + "]";
 	}
-	
-	
 }
