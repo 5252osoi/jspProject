@@ -5,7 +5,7 @@
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!-- 햄버거버튼 -->
-	  <a class="navbar-brand" href="http://localhost:9090/javaProject">Home</a>
+	  <a class="navbar-brand" href="http://192.168.50.53:9090/javaProject">Home</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>

@@ -25,26 +25,6 @@
 		th{
 			text-align:center;
 		}
-		.page-link {
-		  color: #000; 
-		  background-color: #fff;
-		  border: 1px solid #ccc; 
-		}
-		
-		.page-item.active .page-link {
-		 z-index: 1;
-		 color: #555;
-		 font-weight:bold;
-		 background-color: #f0f0f0;
-		 border-color: #ccc;
-		 
-		}
-		
-		.page-link:focus, .page-link:hover {
-		  color: #000;
-		  background-color: #fafafa; 
-		  border-color: #ccc;
-		}
 	</style>
 </head>
 <body>
@@ -56,10 +36,10 @@
 			<tr>
 				<td>
 					<c:if test="${sAdmin != 'adminOk'}">
-						<a href="${ctp}/guest/adminLogin.jsp" class="btn btn-secondary">관리자</a>
+						<a href="${ctp}/guest/adminLogin.jsp" class="btn btn-primary">관리자</a>
 					</c:if>
 					<c:if test="${sAdmin == 'adminOk'}">
-						<a href="${ctp}/adminLogout" class="btn btn-secondary">관리자 로그아웃</a>
+						<a href="${ctp}/adminLogout" class="btn btn-primary">관리자 로그아웃</a>
 					</c:if>
 				</td>
 				<td class="text-right"><a href="${ctp}/guest/guestInput.jsp" class="btn btn-info">글쓰기</a></td>
@@ -135,50 +115,20 @@
 		</table>		
 		<c:set var="curScrStartNo" value="${curScrStartNo-1}"/></c:forEach>
 		<br/>
-		
-		
 		<!-- 블록페이지 시작(1블록의 크기를 3개(3page)로 한다. -->
 		<div class="text-center">
-			<ul class="pagination justify-content-center" style="margin:20px 0">
-				<c:if test="${pag>1}">
-					<li class="page-item">
-						<a class="page-link" href="${ctp}/GuestList?pag=1&pageSize=${pageSize}" title="첫페이지">첫페이지</a>
-					</li>
-				</c:if>
-				<li class="page-item">
-					<c:if test = "${curBlock > 0}">
-						<a class="page-link" href="${ctp}/GuestList?pag=${(curBlock-1)*blockSize+1}&pageSize=${pageSize}">이전블록</a>
-					</c:if>
-				</li>
-				<c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}" varStatus="st">
-					<c:if test="${i<=totPage}">
-						<c:if test="${i==pag}">
-							<li class="page-item active">
-								<a class="page-link" href = "${ctp}/GuestList?pag=${i}&pageSize=${pageSize}">${i}</a>
-							</li>
-						</c:if>
-						<c:if test="${i!=pag}">
-							<li class="page-item">
-								<a class="page-link" href = "${ctp}/GuestList?pag=${i}&pageSize=${pageSize}">${i}</a>
-							</li>
-						</c:if>
-					</c:if>
-				</c:forEach>
-				<c:if test = "${curBlock < lastBlock}">
-					<li class="page-item">
-						<a class="page-link" href="${ctp}/GuestList?pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a>
-					</li>
-				</c:if>
-				<c:if test="${pag<totPage}">
-					<li class="page-item">
-						<a class="page-link" href="${ctp}/GuestList?pag=${totPage}&pageSize=${pageSize}" title="마지막페이지">마지막페이지</a>
-					</li>
-				</c:if>
-			</ul>
+			<c:if test = "${curBlock > 0}"><a href="${ctp}/GuestList?pag=${(curBlock-1)*blockSize+1}&pageSize=${pageSize}">이전블록</a></c:if>
+			<c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}" varStatus="st">
+			<c:if test="${i<=totPage}">
+				<a href = "${ctp}/GuestList?pag=${i}&pageSize=${pageSize}">
+					<c:if test="${i==pag}"><font color='blue'><b>${i}</b></font></c:if>
+					<c:if test="${i!=pag}">${i}</c:if>
+				</a>
+			</c:if>
+			</c:forEach>
+			<c:if test = "${curBlock < lastBlock}"><a href="${ctp}/GuestList?pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></c:if>
 		</div>
 		<!--  블록페이지 끝 -->
-	
-	
 	</div>
 	<p><br/></p>
 <jsp:include page="/include/footer.jsp"/>
