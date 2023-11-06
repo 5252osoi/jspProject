@@ -37,6 +37,45 @@
     <tr><td colspan="6" class="m-0 p-0"></td></tr>
   </table>
   <br/>
+  <div class="text-center">
+  	<ul class="pagination justify-content-center" style="margin:20px 0">
+  		<c:if test="${pg>1}">
+  			<li class="page-item">
+  				<a class="page-link" href="${ctp}/database/memberList?pg=1">첫페이지</a>
+  			</li>
+  		</c:if>
+  		<c:if test="${curBlock>0}">
+  			<li class="page-item">
+  				<a class="page-link" href="${ctp}/database/memberList?pg=${(curBlock-1)*blockSize+1}">이전블록</a>
+  			</li>
+  		</c:if>
+		<c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}" varStatus="st">
+			<c:if test="${i<=totPage}">
+				<c:if test="${i==pg}">
+					<li class="page-item active">
+						<a class="page-link" href="${ctp}/database/memberList?pg=${i}&pageSize">${i}</a>
+					</li>
+				</c:if>
+				<c:if test="${i!=pg}">
+					<li class="page-item">
+						<a class="page-link" href="${ctp}/database/memberList?pg=${i}">${i}</a>
+					</li>
+				</c:if>
+			</c:if>
+		</c:forEach>
+
+  		<c:if test="${curBlock<lastBlock}">
+  			<li class="page-item">
+  				<a class="page-link" href="${ctp}/database/memberList?pg=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a>
+  			</li>
+  		</c:if>
+  		<c:if test="${pg<totPage}">
+  			<li class="page-item">
+  				<a class="page-link" href="${ctp}/database/memberList?pg=${totPage}">끝페이지</a>
+  			</li>
+  		</c:if>
+  	</ul>
+  </div>
   <div>
     <a href="${ctp}/study/database/memberMain.jsp" class="btn btn-success">돌아가기</a>
   </div>

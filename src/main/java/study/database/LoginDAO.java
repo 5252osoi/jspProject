@@ -15,34 +15,38 @@ public class LoginDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
-	private DataSource dataFactory;
+	//private DataSource dataFactory;
 
 	String sql = "";
 	
 	private LoginVO vo = null;
 
-	/*
-	 * // DAO객체의 생성과 동시에 DB 접속처리 한다. public LoginDAO() { String url =
-	 * "jdbc:mysql://localhost:3306/javaProject"; String user = "root"; String
-	 * password = "1234";
-	 * 
-	 * try { Class.forName("com.mysql.jdbc.Driver"); conn =
-	 * DriverManager.getConnection(url, user, password); } catch
-	 * (ClassNotFoundException e) { System.out.println("드라이버 검색 실패~~~" +
-	 * e.getMessage()); } catch (SQLException e) {
-	 * System.out.println("Database 연동 실패~~"); } }
-	 */
+	
+	  // DAO객체의 생성과 동시에 DB 접속처리 한다.
+	  public LoginDAO() {
+		  String url ="jdbc:mysql://localhost:3306/javaProject";
+		  String user = "root";
+		  String password = "1234";
+	  try {
+		  Class.forName("com.mysql.jdbc.Driver");
+		  conn = DriverManager.getConnection(url, user, password);
+	  } catch(ClassNotFoundException e) {
+		  System.out.println("드라이버 검색 실패~~~" + e.getMessage());
+	  } catch (SQLException e) {
+		  System.out.println("Database 연동 실패~~"); }
+	  }
+	 
 	
 	//DBCP 사용
-	public LoginDAO() {
-		try {
-			Context ctx = new InitialContext();
-			Context envContext=(Context) ctx.lookup("java:/comp/env");
-			dataFactory =(DataSource) envContext.lookup("dbcp_mysql");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+//	public LoginDAO() {
+//		try {
+//			Context ctx = new InitialContext();
+//			Context envContext=(Context) ctx.lookup("java:/comp/env");
+//			dataFactory =(DataSource) envContext.lookup("dbcp_mysql");
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//	}
 	
 	// 사용한 객체의 반납(conn 객체 반납)
 	public void connClose() {
@@ -79,7 +83,7 @@ public class LoginDAO {
 		vo = new LoginVO();
 		try {
 			
-			conn=dataFactory.getConnection();
+			//conn=dataFactory.getConnection();
 			
 			sql = "select * from login where mid=? and pwd=?";
 			pstmt = conn.prepareStatement(sql);
@@ -104,11 +108,13 @@ public class LoginDAO {
 	}
 
 	// 전체 조회 처리
-	public ArrayList<LoginVO> getLoginList() {
+	public ArrayList<LoginVO> getLoginList(int startIndexNo, int pageSize) {
 		ArrayList<LoginVO> vos = new ArrayList<LoginVO>();
 		try {
-			sql = "select * from login order by name";
+			sql = "select * from login order by idx limit ?,?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -120,7 +126,7 @@ public class LoginDAO {
 				vo.setPoint(rs.getInt("point"));
 				vo.setLastDate(rs.getString("lastDate"));
 				vo.setTodayCount(rs.getInt("todayCount"));
-				
+				 
 				vos.add(vo);
 			}
 		} catch (SQLException e) {
@@ -220,6 +226,24 @@ public class LoginDAO {
 		}
 		
 		return res;
+	}
+
+
+	public int getTotRecCnt() {
+		int totRecCnt=0;
+		try {
+			sql="select count(*) as cnt from login";
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			rs.next();
+			totRecCnt=rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL구문오류 "+e.getMessage());
+//				e.printStackTrace();
+		} finally {
+			rsClose();
+		}
+		return totRecCnt;
 	}
 	
 }
