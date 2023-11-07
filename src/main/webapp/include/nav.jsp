@@ -25,7 +25,10 @@
 				<button type="button" class="btn btn-sm btn-outline-light dropdown-toggle ml-2 mt-1" data-toggle="dropdown">Study</button>
 				<div class="dropdown-menu">
 					<a class="dropdown-item" href="${ctp}/study/password/passForm.jsp">암호화연습1</a>
-					<a class="dropdown-item" href="#">Link 2</a>
+					<a class="dropdown-item" href="${ctp}/mapping/test1">매핑연습1</a>
+					<a class="dropdown-item" href="${ctp}/mapping/test5.do">확장자패턴</a>
+					<a class="dropdown-item" href="${ctp}/mapping/test5.re">확장자패턴2</a>
+					<a class="dropdown-item" href="${ctp}/mapping/login.lo">로그인연습</a>
 					<a class="dropdown-item" href="#">Link 3</a>
 				</div>
 			</div>
