@@ -1,4 +1,4 @@
-package study2;
+package study2.ajax1;
 
 import java.io.IOException;
 
@@ -26,6 +26,8 @@ public class StudyController extends HttpServlet{
 			command.execute(request, response);
 			viewPage ="/include/message.jsp";
 			
+		} else if(com.equals("/uuidProcess")) {
+			viewPage +="/uuid/uuidForm.jsp";
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);

@@ -1,4 +1,4 @@
-package study2;
+package study2.ajax1;
 
 import java.io.IOException;
 
