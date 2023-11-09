@@ -56,7 +56,7 @@ public class MemberDAO {
 				vo.setTel(rs.getString("tel"));
 				vo.setAddress(rs.getString("address"));
 				vo.setEmail(rs.getString("email"));
-				vo.setHomePage(rs.getString("homPage"));
+				vo.setHomePage(rs.getString("homePage"));
 				vo.setJob(rs.getString("job"));
 				vo.setHobby(rs.getString("hobby"));
 				vo.setPhoto(rs.getString("photo"));
@@ -96,7 +96,7 @@ public class MemberDAO {
 				vo.setTel(rs.getString("tel"));
 				vo.setAddress(rs.getString("address"));
 				vo.setEmail(rs.getString("email"));
-				vo.setHomePage(rs.getString("homPage"));
+				vo.setHomePage(rs.getString("homePage"));
 				vo.setJob(rs.getString("job"));
 				vo.setHobby(rs.getString("hobby"));
 				vo.setPhoto(rs.getString("photo"));
@@ -138,6 +138,61 @@ public class MemberDAO {
 			pstmt.setString(14, vo.getContent());
 			pstmt.setString(15, vo.getUserInfor());
 			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류 "+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+	public MemberVO getMemberEmailCheck(String email) {
+		vo = new MemberVO();
+		try {
+			sql = "select * from member where email = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setName(rs.getString("name"));
+				vo.setGender(rs.getString("gender"));
+				vo.setBirthday(rs.getString("birthday"));
+				vo.setTel(rs.getString("tel"));
+				vo.setAddress(rs.getString("address"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setJob(rs.getString("job"));
+				vo.setHobby(rs.getString("hobby"));
+				vo.setPhoto(rs.getString("photo"));
+				vo.setContent(rs.getString("content"));
+				vo.setUserInfor(rs.getString("userInfor"));
+				vo.setUserDel(rs.getString("userDel"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLevel(rs.getInt("level"));
+				vo.setVisitCnt(rs.getInt("visitCnt"));
+				vo.setStartDate(rs.getString("startDate"));
+				vo.setLastDate(rs.getString("lastDate"));
+				vo.setTodayCnt(rs.getInt("todayCnt"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL오류 "+e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
+	}
+	public int setMemberImsiPwd(String pwd, String mid) {
+		int res=0;
+		try {
+			sql="update member set pwd=? where mid=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, mid);
+			res=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL오류 "+e.getMessage());
 		} finally {

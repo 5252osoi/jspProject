@@ -54,6 +54,21 @@ public class MemberController extends HttpServlet{
 			//command.execute(request, response);
 			viewPage +="/memberMain.jsp";
 			
+		} else if (com.equals("/memberFoundId")) {
+			viewPage +="/memberFoundId.jsp";
+			
+		} else if (com.equals("/memberFoundIdOk")) {
+			command=new MemberFoundIdOkCommand();
+			command.execute(request, response);
+			viewPage +="/memberFoundIdOk.jsp";
+			
+		} else if (com.equals("/memberFoundPwd")) {
+			viewPage +="/memberFoundPwd.jsp";
+			
+		} else if (com.equals("/memberFoundPwdOk")) {
+			command=new MemberFoundPwdCommand();
+			command.execute(request, response);
+			viewPage +="/memberFoundPwd.jsp";
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);
