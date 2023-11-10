@@ -142,4 +142,33 @@ public class GuestDAO {
 		}
 		return totRecCnt;
 	}
+	public ArrayList<GuestVO> getMemberSearch(String mid, String name, String nickName) {
+		ArrayList<GuestVO> vos = new ArrayList<GuestVO>();
+		try {
+			sql = "select * from guest where name like ? or name like ? or name like ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, name);
+			pstmt.setString(3, nickName);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new GuestVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setName(rs.getString("name"));
+				vo.setContent(rs.getString("content"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setVisitDate(rs.getString("visitDate"));
+				vo.setHostIp(rs.getString("hostIp"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
+	}
 }

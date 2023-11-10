@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<jsp:include page="/include/bs4.jsp"/>
-	<title>아이디찾기</title>	
+	<title>비밀번호찾기</title>	
 	<script>
 		'use strict';
 		function fCheck(){
@@ -40,7 +40,7 @@
 <body>
 	<p><br/></p>
 	<div class="container">
-		<h2>아이디 찾기</h2>
+		<h2>비밀번호 찾기</h2>
 		<c:if test="${res!=1&&res!=0}">
 			<form name="myform" method="post" action="memberFoundPwdOk.mem">
 				<div>
