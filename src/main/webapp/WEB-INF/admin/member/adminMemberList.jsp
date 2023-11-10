@@ -46,10 +46,10 @@
 	<p><br/></p>
 	<div class="container">
 		<h2>전체 회원 리스트</h2>
-		<table class="table table-hover">
+		<table class="table table-hover text-center">
 			<tr>
-				<td>
-					<div> 등급별 검색 (대충 onchange로 검색하기)</div>
+				<td colspan="2" class="text-left">
+					<div> 등급별 검색 </div><!-- (대충 onchange로 검색하기) -->
 					<select>
 						<option>관리자</option>
 						<option>준회원</option>
