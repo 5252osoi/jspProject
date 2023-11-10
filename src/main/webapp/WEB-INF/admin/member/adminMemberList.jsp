@@ -40,6 +40,17 @@
 	    		}
 	    	});
 		}
+		
+		function levelSearch(e){
+			let level= document.getElementById("level").value;
+			if(level==4){
+				location.href="adminMemberList.ad";
+				
+			} else {
+				location.href="AMLS.ad?level="+level;
+			}
+		}
+		
 	</script>
 </head>
 <body>
@@ -49,12 +60,13 @@
 		<table class="table table-hover text-center">
 			<tr>
 				<td colspan="2" class="text-left">
-					<div> 등급별 검색 </div><!-- (대충 onchange로 검색하기) -->
-					<select>
-						<option>관리자</option>
-						<option>준회원</option>
-						<option>정회원</option>
-						<option>우수회원</option>
+					<div> 등급별 검색 </div><!-- (대 충 onchange로 검색하기) -->
+					<select name="level" id="level" onchange="levelSearch(this)">
+						<option value="4">전체</option>
+						<option value="0" ${lv==0 ? "selected" : ""}>관리자</option>
+						<option value="1" ${lv==1 ? "selected" : ""}>준회원</option>
+						<option value="2" ${lv==2 ? "selected" : ""}>정회원</option>
+						<option value="3" ${lv==3 ? "selected" : ""}>우수회원</option>
 					</select>
 				</td>			
 			</tr>
@@ -79,7 +91,7 @@
 					<td>${vo.userDel}</td>
 					<td>
 						<form name="levelForm">
-				            <select name="level" onchange="levelChange(this)">
+				            <select name="level" id="level" onchange="levelChange(this)">
 				              <option value="0/${vo.idx}" ${vo.level==0 ? "selected" : ""}>관리자</option>
 				              <option value="1/${vo.idx}" ${vo.level==1 ? "selected" : ""}>준회원</option>
 				              <option value="2/${vo.idx}" ${vo.level==2 ? "selected" : ""}>정회원</option>

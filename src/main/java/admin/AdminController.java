@@ -47,6 +47,10 @@ public class AdminController extends HttpServlet{
 			command=new MemberLevelChangeCommand();
 			command.execute(request, response);
 			return;
+		} else if (com.equals("/AMLS")) {
+			command=new MemberLevelSearchCommand();
+			command.execute(request, response);
+			viewPage += "/member/adminMemberList.jsp";
 		}
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
