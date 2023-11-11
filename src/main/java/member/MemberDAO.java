@@ -262,12 +262,14 @@ public class MemberDAO {
 		
 	}
 	
-	//회원 전체체리스트
-	public ArrayList<MemberVO> getMemberList() {
+	//회원 전체체리스트(페이징작업)
+	public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize) {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-			sql = "select * from member order by idx desc";
+			sql = "select * from member order by idx desc limit ?,?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs= pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new MemberVO();
@@ -303,6 +305,8 @@ public class MemberDAO {
 		}
 		return vos;
 	}
+	
+	//회원등급변경
 	public int setMemberLevelChange(int idx, int level) {
 		int res=0;
 		try {
@@ -358,6 +362,22 @@ public class MemberDAO {
 			rsClose();
 		}
 		return vos;
+	}
+	public int getTotRecCnt() {
+		int totRecCnt=0;
+		try {
+			sql="select count(*) as cnt from guest";
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			rs.next();
+			totRecCnt=rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL구문오류 "+e.getMessage());
+//			e.printStackTrace();
+		} finally {
+			rsClose();
+		}
+		return totRecCnt;
 	}
 	
 	

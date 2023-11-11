@@ -51,7 +51,38 @@
 			}
 		}
 		
+		//페이징처리하기
+		function pageCheck(){
+			let pageSize = document.getElementById("pageSize").value;
+				location.href="adminMemberList.ad?pag=${pag}&pageSize="+pageSize;
+		}
+		
 	</script>
+	<style>
+		th{
+			text-align:center;
+		}
+		.page-link {
+		  color: #000; 
+		  background-color: #fff;
+		  border: 1px solid #ccc; 
+		}
+		
+		.page-item.active .page-link {
+		 z-index: 1;
+		 color: #555;
+		 font-weight:bold;
+		 background-color: #f0f0f0;
+		 border-color: #ccc;
+		 
+		}
+		
+		.page-link:focus, .page-link:hover {
+		  color: #000;
+		  background-color: #fafafa; 
+		  border-color: #ccc;
+		}
+	</style>
 </head>
 <body>
 	<p><br/></p>
@@ -59,14 +90,23 @@
 		<h2>전체 회원 리스트</h2>
 		<table class="table table-hover text-center">
 			<tr>
-				<td colspan="2" class="text-left">
+				<td class="text-left">
 					<div> 등급별 검색 </div><!-- (대 충 onchange로 검색하기) -->
 					<select name="level" id="level" onchange="levelSearch(this)">
-						<option value="4">전체</option>
+						<option value="4" ${lv==4 ? "selected" : ""}>전체보기</option>
 						<option value="0" ${lv==0 ? "selected" : ""}>관리자</option>
 						<option value="1" ${lv==1 ? "selected" : ""}>준회원</option>
 						<option value="2" ${lv==2 ? "selected" : ""}>정회원</option>
 						<option value="3" ${lv==3 ? "selected" : ""}>우수회원</option>
+					</select>
+				</td>			
+				<td class="text-left">
+					<div> 페이지당 회원수 </div><!-- (대 충 onchange로 검색하기) -->
+					<select name="level" id="level" onchange="levelSearch(this)">
+						<option ${pageSize==2 ? "selected" : ""}>2</option>
+						<option ${pageSize==3 ? "selected" : ""}>3</option>
+						<option ${pageSize==5 ? "selected" : ""}>5</option>
+						<option ${pageSize==10 ? "selected" : ""}>10</option>
 					</select>
 				</td>			
 			</tr>
@@ -104,6 +144,49 @@
 			<tr><td colspan="8" class="m-0"></td></tr>
 		</table>
 		<!-- 페이징처리하기 -->
+		<c:set var="curScrStartNo" value="${curScrStartNo-1}"/>
+		<hr/>
+		<!-- 블록페이지 시작(1블록의 크기를 3개(3page)로 한다. -->
+		<div class="text-center">
+			<ul class="pagination justify-content-center" style="margin:20px 0">
+				<c:if test="${pag>1}">
+					<li class="page-item">
+						<a class="page-link" href="adminMemberList.ad?pag=1&pageSize=${pageSize}" title="첫페이지">첫페이지</a>
+					</li>
+				</c:if>
+				<li class="page-item">
+					<c:if test = "${curBlock > 0}">
+						<a class="page-link" href="adminMemberList.ad?pag=${(curBlock-1)*blockSize+1}&pageSize=${pageSize}">이전블록</a>
+					</c:if>
+				</li>
+				<c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}" varStatus="st">
+					<c:if test="${i<=totPage}">
+						<c:if test="${i==pag}">
+							<li class="page-item active">
+								<a class="page-link" href = "adminMemberList.ad?pag=${i}&pageSize=${pageSize}">${i}</a>
+							</li>
+						</c:if>
+						<c:if test="${i!=pag}">
+							<li class="page-item">
+								<a class="page-link" href = "adminMemberList.ad?pag=${i}&pageSize=${pageSize}">${i}</a>
+							</li>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				<c:if test = "${curBlock < lastBlock}">
+					<li class="page-item">
+						<a class="page-link" href="adminMemberList.ad?pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a>
+					</li>
+				</c:if>
+				<c:if test="${pag<totPage}">
+					<li class="page-item">
+						<a class="page-link" href="adminMemberList.ad?pag=${totPage}&pageSize=${pageSize}" title="마지막페이지">마지막페이지</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
+		<!--  블록페이지 끝 -->
+		
 	</div>
 	<p><br/></p>
 </body>

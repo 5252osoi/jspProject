@@ -16,7 +16,8 @@
 		<hr/>
 		<p> 방명록 새글 : ??? </p>
 		<p> 게시판 새글 : ??? </p>
-		<p> 신규 등록회원 : ??? </p>
+		<p> 신규 등록회원 : <a href="AMLS.ad?lv=1&level=1">${newCrew}</a></p>
+		
 	</div>
 	<p><br/></p>
 </body>

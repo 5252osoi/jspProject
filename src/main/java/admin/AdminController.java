@@ -36,6 +36,8 @@ public class AdminController extends HttpServlet{
 			viewPage +="/adminLeft.jsp";
 			
 		} else if(com.equals("/adminContent")) {
+			command=new MemberNewCrewCommand();
+			command.execute(request, response);
 			viewPage +="/adminContent.jsp";
 			
 		} else if (com.equals("/adminMemberList")) {
