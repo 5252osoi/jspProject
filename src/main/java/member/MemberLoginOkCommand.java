@@ -1,7 +1,11 @@
 package member;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -56,8 +60,29 @@ public class MemberLoginOkCommand implements MemberInterface {
 			vo.setPoint(vo.getPoint()+10);
 		}
 		
+		//ChronoUnit은 TemporalUnit 인터페이스를 구현한 Enum 클래스
+		//비교할 때 localDate형식으로 바꾸거나 Temporal로 바꿔서 비교 가능
+		//반환되는값은 (startDay,endDay)면 endDay-startDay = 남은시간
+		String startDay=vo.getStartDate().substring(0,10);
+		//System.out.println(startDay);
+		
+		//System.out.println("strToday : " + strToday);
+		//System.out.println("startDay : " + startDay);
+		//Date visitDay=sdf.parse(strToday);
+		//Date firstDay=sdf.parse(startDay);
+		LocalDate visitDay =LocalDate.parse(strToday);
+		LocalDate firstDay =LocalDate.parse(startDay);
+		
+		
+		if(ChronoUnit.DAYS.between(firstDay,visitDay)<=10 && vo.getVisitCnt()>=5 && vo.getLevel()==1) {
+			// 최초가입일부터 현재접속일이 10일 이내이고, 총 방문횟수가 5회 이상인 준회원은 정회원으로 등급업 해줄것임
+			vo.setLevel(vo.getLevel()+1);
+		}
 		// 3.DB작업(변경된 내용들을 DB에 저장(갱신))
 		dao.setLoginUpdate(vo);		
+		
+		//저장한 뒤 자료를 다시 불러오기 (5회에서 업데이트만 하고 그냥 가져오면 준회원으로 출력되니까)
+		vo = dao.getMemberMidCheck(mid);
 		//!회원등급을 숫자말고 정회원 준회원 이런식으로 바꾸기
 		String strLevel="";
 		if(vo.getLevel()==0)strLevel="관리자";

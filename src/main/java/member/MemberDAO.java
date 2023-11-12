@@ -205,11 +205,12 @@ public class MemberDAO {
 	}
 	public void setLoginUpdate(MemberVO vo) {
 		try {
-			sql = "update member set point=?, lastDate=now(), todayCnt=?, visitCnt=visitCnt+1  where mid = ?";
+			sql = "update member set point=?, lastDate=now(), todayCnt=?, level=?, visitCnt=visitCnt+1  where mid = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, vo.getPoint());
 			pstmt.setInt(2, vo.getTodayCnt());
-			pstmt.setString(3, vo.getMid());
+			pstmt.setInt(3, vo.getLevel());
+			pstmt.setString(4, vo.getMid());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("sql구문 오류 : " + e.getMessage());
@@ -366,7 +367,7 @@ public class MemberDAO {
 	public int getTotRecCnt() {
 		int totRecCnt=0;
 		try {
-			sql="select count(*) as cnt from guest";
+			sql="select count(*) as cnt from member";
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			rs.next();

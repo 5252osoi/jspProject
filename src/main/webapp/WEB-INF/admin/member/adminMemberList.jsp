@@ -42,7 +42,7 @@
 		}
 		
 		function levelSearch(e){
-			let level= document.getElementById("level").value;
+			let level= document.getElementById("lv").value;
 			if(level==4){
 				location.href="adminMemberList.ad";
 				
@@ -92,7 +92,7 @@
 			<tr>
 				<td class="text-left">
 					<div> 등급별 검색 </div><!-- (대 충 onchange로 검색하기) -->
-					<select name="level" id="level" onchange="levelSearch(this)">
+					<select name="lv" id="lv" onchange="levelSearch(this)">
 						<option value="4" ${lv==4 ? "selected" : ""}>전체보기</option>
 						<option value="0" ${lv==0 ? "selected" : ""}>관리자</option>
 						<option value="1" ${lv==1 ? "selected" : ""}>준회원</option>
@@ -102,7 +102,7 @@
 				</td>			
 				<td class="text-left">
 					<div> 페이지당 회원수 </div><!-- (대 충 onchange로 검색하기) -->
-					<select name="level" id="level" onchange="levelSearch(this)">
+					<select name="pageSize" id="pageSize" onchange="pageCheck(this)">
 						<option ${pageSize==2 ? "selected" : ""}>2</option>
 						<option ${pageSize==3 ? "selected" : ""}>3</option>
 						<option ${pageSize==5 ? "selected" : ""}>5</option>
