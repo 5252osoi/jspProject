@@ -19,9 +19,16 @@ public class MemberLevelSearchCommand implements AdminInterface {
 		MemberDAO dao = new MemberDAO();
 		
 		ArrayList<MemberVO> vos = dao.getMemberLevelSearchList(level);
+		String strLevel="";
+		if(level==0)strLevel="관리자";
+		else if(level==1)strLevel="준회원";
+		else if(level==2)strLevel="정회원";
+		else if(level==3)strLevel="우수회원";
+		else strLevel="전체 회원";
 		
 		request.setAttribute("vos", vos);	
 		request.setAttribute("lv", level);
+		request.setAttribute("strLevel", strLevel);
 
 		
 	}

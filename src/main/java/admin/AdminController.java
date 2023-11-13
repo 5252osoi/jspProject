@@ -26,7 +26,12 @@ public class AdminController extends HttpServlet{
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel")==null?99: (int) session.getAttribute("sLevel");
 		
-		if(level!=0) { //관리자가 아니면 나가
+		if(com.equals("/main")) {
+			command=new MainCommand();
+			command.execute(request, response);
+			viewPage ="/WEB-INF/main/main.jsp";
+		
+		} else if(level!=0) { //관리자가 아니면 나가
 			request.getRequestDispatcher("/").forward(request, response);
 			
 		} else if(com.equals("/adminMain")) {
@@ -49,11 +54,18 @@ public class AdminController extends HttpServlet{
 			command=new MemberLevelChangeCommand();
 			command.execute(request, response);
 			return;
+			
 		} else if (com.equals("/AMLS")) {
 			command=new MemberLevelSearchCommand();
 			command.execute(request, response);
 			viewPage += "/member/adminMemberList.jsp";
+			
+		} else if (com.equals("/adminMemberInfor")) {
+			command=new AdminMemberInforCommand();
+			command.execute(request, response);
+			viewPage += "/member/adminMemberInfor.jsp";
 		}
+		
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 	

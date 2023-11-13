@@ -27,15 +27,17 @@ public class MemberLoginOkCommand implements MemberInterface {
 		MemberDAO dao = new MemberDAO();
 		
 		MemberVO vo = dao.getMemberMidCheck(mid);
-
-		if(!vo.getMid().equals(mid)) {
+		
+//		if(!vo.getMid().equals(mid)) {
+		
+		if(vo.getMid()==null || vo.getUserDel().equals("OK") || !vo.getMid().equals(mid)) {
 			request.setAttribute("msg", "아이디를 확인하세요");
 			request.setAttribute("url", "memberLogin.mem");
 			return;
 		}
 		SecurityUtil security = new SecurityUtil();
 		pwd = security.encryptSHA256(pwd);
-		
+ 		
 		if(!vo.getPwd().equals(pwd)) {
 			request.setAttribute("msg", "비밀번호를 확인하세요");
 			request.setAttribute("url", "memberLogin.mem");
@@ -64,15 +66,15 @@ public class MemberLoginOkCommand implements MemberInterface {
 		//비교할 때 localDate형식으로 바꾸거나 Temporal로 바꿔서 비교 가능
 		//반환되는값은 (startDay,endDay)면 endDay-startDay = 남은시간
 		String startDay=vo.getStartDate().substring(0,10);
-		//System.out.println(startDay);
 		
-		//System.out.println("strToday : " + strToday);
-		//System.out.println("startDay : " + startDay);
-		//Date visitDay=sdf.parse(strToday);
-		//Date firstDay=sdf.parse(startDay);
+//		try {
+//			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(strToday);
+//			Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(vo.getStartDate());
+//			long diffDate=(date1.getTime()-date2.getTime())/(60*60*24*1000); //날짜차이가 일수로
+//		} catch (ParseException e) {e.printStackTrace();}
+		
 		LocalDate visitDay =LocalDate.parse(strToday);
 		LocalDate firstDay =LocalDate.parse(startDay);
-		
 		
 		if(ChronoUnit.DAYS.between(firstDay,visitDay)<=10 && vo.getVisitCnt()>=5 && vo.getLevel()==1) {
 			// 최초가입일부터 현재접속일이 10일 이내이고, 총 방문횟수가 5회 이상인 준회원은 정회원으로 등급업 해줄것임
@@ -83,6 +85,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 		
 		//저장한 뒤 자료를 다시 불러오기 (5회에서 업데이트만 하고 그냥 가져오면 준회원으로 출력되니까)
 		vo = dao.getMemberMidCheck(mid);
+		
 		//!회원등급을 숫자말고 정회원 준회원 이런식으로 바꾸기
 		String strLevel="";
 		if(vo.getLevel()==0)strLevel="관리자";

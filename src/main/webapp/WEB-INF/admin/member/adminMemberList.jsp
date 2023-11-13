@@ -54,7 +54,25 @@
 		//페이징처리하기
 		function pageCheck(){
 			let pageSize = document.getElementById("pageSize").value;
-				location.href="adminMemberList.ad?pag=${pag}&pageSize="+pageSize;
+			location.href="adminMemberList.ad?pag=${pag}&pageSize="+pageSize;
+		}
+		//탈퇴신청 30일 경과 회원정보 삭제
+		function memberDeleteOk(idx){
+			let ans=confirm("선택된 회원을 삭제하시겠습니까?");
+			if(!ans) return false;
+			
+			$.ajax({
+				url : "memberDeleteOk.mem",
+				type: "post",
+				data: {idx:idx},
+				succcess:function(){
+					alert("회원정보 삭제완료");
+					location.reload();
+				},
+				error:function(){
+					alert("전송오류");
+				}
+			});
 		}
 		
 	</script>
@@ -87,7 +105,7 @@
 <body>
 	<p><br/></p>
 	<div class="container">
-		<h2>전체 회원 리스트</h2>
+		<h2>${strLevel} 리스트</h2>
 		<table class="table table-hover text-center">
 			<tr>
 				<td class="text-left">
@@ -123,12 +141,18 @@
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<tr>
 					<td>${vo.idx}</td>
-					<td>${vo.mid}</td>
+					<td><a href="adminMemberInfor.ad?mid=${vo.mid}&pag=${pag}&pageSize=${pageSize}">${vo.mid}</a></td>
+<%-- 					<td><a href="adminMemberInfor.ad?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&lv=${lv}">${vo.mid}</a></td> --%>
 					<td>${vo.nickName}</td>
 					<td>${vo.name}</td>
 					<td>${vo.userInfor}</td>
 					<td>${vo.todayCnt}</td>
-					<td>${vo.userDel}</td>
+					<td>
+						<c:if test="${vo.userDel=='OK'}"><font color="red"><b>탈퇴신청</b></font>
+							<c:if test="${vo.deleteDiff>=30}"><a href="javascript:memberDeleteOk(${vo.idx})" title="30일 경과 회원정보 영구삭제" class="btn btn-danger btn-sm">x</a></c:if>
+						</c:if>
+						<c:if test="${vo.userDel!='OK'}">활동중</c:if>
+					</td>
 					<td>
 						<form name="levelForm">
 				            <select name="level" id="level" onchange="levelChange(this)">

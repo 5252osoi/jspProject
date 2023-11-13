@@ -26,6 +26,7 @@ lastDate	datetime default now(),				/*마지막 접속일*/
 todayCnt	int default 0,						/*오늘 방문한 횟수*/
 /*salt		char(8) not null,*/					/*비밀번호 보안을 위한 salt*/
 
+
 /*primary key(idx,mid),*/
 primary key(idx),
 unique(mid)
@@ -36,3 +37,4 @@ drop table member;
 desc member;
 
 select * from member;
+select *,timestampdiff(day,lastDate,now()) as deleteDiff from member order by idx desc limit 0,5;

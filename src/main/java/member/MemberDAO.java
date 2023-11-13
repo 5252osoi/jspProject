@@ -267,7 +267,7 @@ public class MemberDAO {
 	public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize) {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-			sql = "select * from member order by idx desc limit ?,?";
+			sql = "select *, timestampdiff(day,lastDate,now()) as deleteDiff from member order by idx desc limit ?,?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -297,6 +297,9 @@ public class MemberDAO {
 				vo.setStartDate(rs.getString("startDate"));
 				vo.setLastDate(rs.getString("lastDate"));
 				vo.setTodayCnt(rs.getInt("todayCnt"));
+				
+				vo.setDeleteDiff(rs.getInt("deleteDiff"));
+				
 				vos.add(vo);
 			}
 		} catch (SQLException e) {
@@ -379,6 +382,38 @@ public class MemberDAO {
 			rsClose();
 		}
 		return totRecCnt;
+	}
+	
+	//회원 탈퇴신청 (userDel필드의 값을 NO-> OK로 변경)
+	public int setMemberDelCheck(String mid) {
+		int res=0;
+		try {
+			sql="update member set userDel = 'OK' where mid=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			res=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문오류 "+e.getMessage());
+//			e.printStackTrace();
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+	
+	//탈퇴신청 30일경과회원 정보삭제
+	public void setMemberDeleteOk(int idx) {
+		try {
+			sql="delete from member where idx=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문오류 "+e.getMessage());
+//			e.printStackTrace();
+		} finally {
+			pstmtClose();
+		}
 	}
 	
 	
