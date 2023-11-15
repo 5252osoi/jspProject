@@ -70,6 +70,11 @@ public class BoardController extends HttpServlet{
 			command = new BoardDeleteCommand();
 			command.excute(request, response);
 			viewPage = "/include/message.jsp";
+			
+		} else if(com.equals("/boardSearch")){
+			command = new BoardSearchCommand();
+			command.excute(request, response);
+			viewPage += "/boardSearchList.jsp";
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);
