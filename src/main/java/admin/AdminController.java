@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import admin.review.ReviewInputCommand;
 import member.MemberInterface;
 import member.MemberListCommand;
 
@@ -30,7 +31,12 @@ public class AdminController extends HttpServlet{
 			command=new MainCommand();
 			command.execute(request, response);
 			viewPage ="/WEB-INF/main/main.jsp";
-		
+			
+		} else if (com.equals("/reviewInput")) {
+			command=new ReviewInputCommand();
+			command.execute(request, response);
+			return;
+			
 		} else if(level!=0) { //관리자가 아니면 나가
 			request.getRequestDispatcher("/").forward(request, response);
 			
@@ -64,6 +70,7 @@ public class AdminController extends HttpServlet{
 			command=new AdminMemberInforCommand();
 			command.execute(request, response);
 			viewPage += "/member/adminMemberInfor.jsp";
+
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);

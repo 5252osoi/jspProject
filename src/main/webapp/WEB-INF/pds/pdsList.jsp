@@ -100,7 +100,9 @@
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<tr>
 					<td>${pdsCnt}</td>
-					<td>${vo.title}</td>
+					<td>
+						<a href="pdsContent.pds?idx=${vo.idx}&pag=${pag}&pageSize${pageSize}&part=${part}">${vo.title}</a>
+					</td>
 					<td>${vo.nickName }</td>
 					<td>${vo.fDate }</td>
 					<td>${vo.part }</td>
@@ -115,8 +117,10 @@
 					<td>${vo.downNum }</td>
 					<td>
 						<c:if test="${vo.mid==sMid||sLevel==0}">
-							<a href="javascript:pdsDeleteCheck('${vo.idx}','${vo.fSName}')" class="btn btn-danger btn-sm">삭제</a>
+							<a href="javascript:pdsDeleteCheck('${vo.idx}','${vo.fSName}')" class="badge badge-danger badge-l">삭제</a>
 						</c:if>
+						<br/>
+						<a href="pdsTotalDown.pds?idx=${vo.idx}" class="badge badge-primary badge-l">전체다운</a>
 					</td>
 				</tr>
 				<c:set var="pdsCnt" value="${pdsCnt - 1}"/>

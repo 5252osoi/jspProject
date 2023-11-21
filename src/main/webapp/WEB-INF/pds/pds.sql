@@ -29,3 +29,14 @@ create table pds (
 desc pds;
 
 select * from pds order by idx desc;
+
+create table review(
+	idx 	int not null auto_increment,		/*리뷰 idx*/
+	part	varchar(20) not null,				/*리뷰파트(게시판,자료실등)*/
+	partIdx	int not null,						/*파트 idx*/
+	mid		varchar(30) not null,				/*리뷰 올린이*/
+	star	int not null default 0,				/*별점*/
+	content text,								/*리뷰 내용*/
+	rDate	datetime default now(),				/*리뷰작성일*/
+	primary key(idx)
+);
