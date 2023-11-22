@@ -1,4 +1,4 @@
-package study2.ajax1;
+package study2;
 
 import java.io.IOException;
 
@@ -7,5 +7,5 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface StudyInterface {
-	public void execute(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException;
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }

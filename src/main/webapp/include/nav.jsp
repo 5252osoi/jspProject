@@ -63,19 +63,36 @@
 						<a class="dropdown-item" href="uuidProcess.st">UUID연습</a>
 					</div>
 				</div>
-		      </li>   
-		      <li class="nav-item ml-2 mr-2">
-				<div class="dropdown">
-					<button type="button" class="btn btn-sm btn-outline-light dropdown-toggle ml-2 mt-1" data-toggle="dropdown">MyPage</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="memberMain.mem">회원메인방</a>
-						<a class="dropdown-item" href="memberPwdCheck.mem">회원정보수정</a>
-						<c:if test="${sLevel==0||sLevel==2||sLevel==3}"><a class="dropdown-item" href="mList.mem">회원리스트</a></c:if>
-						<a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
-						<c:if test="${sLevel==0}"><a class="dropdown-item" href="adminMain.ad">관리자메뉴</a></c:if>
+				</li>   
+				<li class="nav-item ml-2 mr-2">
+					<div class="dropdown">
+						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Study2</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="fileUpload1.st">싱글파일업로드1</a>
+							<a class="dropdown-item" href="fileUpload2.st">싱글파일업로드2</a>
+							<a class="dropdown-item" href="fileUpload3.st">멀티파일업로드1</a>
+							<a class="dropdown-item" href="fileUpload4.st">멀티파일업로드2</a>
+							<a class="dropdown-item" href="fileDownload.st">다운로드이동</a>
+							<a class="dropdown-item" href="calendar1.st">달력연습1</a>
+							<a class="dropdown-item" href="calendar2.st">달력연습2</a>
+						</div>
 					</div>
-				</div>
-		      </li>   
+	     		</li>
+	     		<li class="nav-item ml-2 mr-2">
+					<div class="dropdown">
+						<button type="button" class="btn btn-sm btn-outline-light dropdown-toggle ml-2 mt-1" data-toggle="dropdown">MyPage</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="memberMain.mem">회원메인방</a>
+							<a class="dropdown-item" href="schedule.sc">일정관리</a>
+							<a class="dropdown-item" href="memberPwdCheck.mem">회원정보수정</a>
+							<c:if test="${sLevel==0||sLevel==2||sLevel==3}"><a class="dropdown-item" href="mList.mem">회원리스트</a></c:if>
+							<a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
+							<c:if test="${sLevel==0}"><a class="dropdown-item" href="adminMain.ad">관리자메뉴</a></c:if>
+						</div>
+					</div>
+				</li>   
+		      
+		      
 	      </c:if>
 	      <li class="nav-item">
 	      		<c:if test="${level>4}"><a class="nav-link" href="memberLogin.mem">Login</a></c:if>
