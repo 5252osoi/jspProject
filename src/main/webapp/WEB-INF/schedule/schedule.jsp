@@ -58,15 +58,26 @@
           <c:set var="todaySw" value="${toYear==yy && toMonth==mm && toDay==st.count ? 1 : 0}"/>
           <td id="td${cell}" ${todaySw==1 ? 'class=today' : ''} class="text-left"  style="height:100px">
           <c:set var="ymd" value="${yy}-${mm+1}-${st.count}"/>
+<%--         
           <a href="scheduleMenu.sc?ymd=${ymd}">${st.count}</a><br/>
           
           <!-- 해당날짜에 일정이 있으면 part출력(2023-11-22 -->
+           
           <c:forEach var="vo" items="${vos}">
           	<c:if test="${fn:substring(vo.sDate,8,10)==st.count}">
           		${vo.part}<br/>
           	</c:if>
           </c:forEach>
-          
+--%>
+
+          <a href="scheduleMenu.sc?ymd=${ymd}">${st.count}<br/>
+	            <!-- 해당날짜에 일정이 있다면 part를 출력한다.(2023-11-22) -->
+	            <c:forEach var="vo" items="${vos}">
+	              <c:if test="${fn:substring(vo.sDate,8,10)==st.count}">
+		              - ${vo.part}(${vo.partCnt})<br/>
+	              </c:if>
+	            </c:forEach>
+          </a>
           </td>
           <c:if test="${cell % 7 == 0}"></tr><tr></c:if>
           <c:set var="cell" value="${cell + 1}" />

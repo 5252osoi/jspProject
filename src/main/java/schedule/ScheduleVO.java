@@ -6,6 +6,7 @@ public class ScheduleVO {
 	private String sDate;
 	private String part;
 	private String content;
+	private int partCnt;
 	
 	public int getIdx() {
 		return idx;
@@ -37,10 +38,16 @@ public class ScheduleVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	public int getPartCnt() {
+		return partCnt;
+	}
+	public void setPartCnt(int partCnt) {
+		this.partCnt = partCnt;
+	}
 	@Override
 	public String toString() {
-		return "ScheduleVO [idx=" + idx + ", mid=" + mid + ", sDate=" + sDate + ", part=" + part + ", content=" + content
-				+ "]";
+		return "ScheduleVO [idx=" + idx + ", mid=" + mid + ", sDate=" + sDate + ", part=" + part + ", content="
+				+ content + ", partCnt=" + partCnt + "]";
 	}
+	
 }

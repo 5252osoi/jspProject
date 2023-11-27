@@ -24,4 +24,19 @@ insert into schedule values (default,'gugus','2023-11-22','학습','프로젝트
 
 select * from schedule;
 
+select * from schedule where mid='hkd1234' and date_format(sDate,'%Y-%m-%d')='2023-11-01' order by sDate, part;
 select * from schedule where mid='hkd1234' and date_format(sDate,'%Y-%m')='2023-11' order by sDate, part;
+
+select distinct sDate,count(*) as cnt from schedule where mid = 'hkd1234' and  date_format(sDate,'%Y-%m')='2023-11' order by sDate, part;
+
+select * from schedule group by date_format(sDate,'%Y-%m')='2023-11' order by sDate, part;
+
+select *, count(*) from schedule group by date_format(sDate,'%Y-%m')='2023-11' order by sDate, part;
+
+select * from schedule where mid='hkd1234' and date_format(sDate,'%Y-%m')='2023-11' group by sDate order by sDate, part;
+
+select *, count(*) from schedule where mid='hkd1234' and date_format(sDate,'%Y-%m')='2023-11' group by sDate,part order by sDate, part;
+
+
+
+

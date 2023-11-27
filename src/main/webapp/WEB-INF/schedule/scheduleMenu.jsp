@@ -52,7 +52,7 @@
 		function scheduleInputClose(){
 			$("#scheduleInputView").show();
 			$("#scheduleInputClose").hide();
-			$("#scheduleInputForm").hide();
+			$("#scheduleInputForm").slideUp();
 		}
 
 	    // 일정 등록하기
